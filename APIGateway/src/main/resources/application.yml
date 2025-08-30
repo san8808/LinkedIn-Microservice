@@ -48,5 +48,13 @@ spring:
               - StripPrefix=2
               - name: AuthenticationFilter
 
+           - id: notification-service
+             uri: lb://NOTIFICATION-SERVICE
+             predicates:
+               - Path=/api/v1/notifications/**
+             filters:
+               - StripPrefix=2
+               - name: AuthenticationFilter
+
 
 
