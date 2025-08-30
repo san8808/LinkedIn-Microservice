@@ -1,0 +1,52 @@
+server.port: 8080
+
+jwt.secretKey: kjhdklsjdweisndlj1heiue3e27e87asdnaiudq8o7dbuysdddln5o87y
+eureka:
+  client:
+     service-url:
+         defaultZone: http://localhost:8761/eureka
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+           - id: user-service
+             uri: lb://USER-SERVICE
+             predicates:
+              - Path=/api/v1/users/**
+             filters:
+              - StripPrefix=2
+
+#     if we have protected routed for user-service than we can do this to add filter
+#        - id: user-service_protected
+#          uri: lb://USER-SERVICE
+#          predicates:
+#            - Path=/api/v1/users/protected/**
+#          filters:
+#            - StripPrefix=2
+
+           - id: post-service
+             uri: lb://POST-SERVICE
+             predicates:
+              - Path=/api/v1/posts/**
+             filters:
+              - StripPrefix=2
+              - name: AuthenticationFilter
+
+           - id: connection-service
+             uri: lb://CONNECTION-SERVICE
+             predicates:
+              - Path=/api/v1/connections/**
+             filters:
+              - StripPrefix=2
+              - name: AuthenticationFilter
+
+
+
