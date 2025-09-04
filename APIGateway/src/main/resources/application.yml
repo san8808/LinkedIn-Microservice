@@ -18,22 +18,14 @@ spring:
         webflux:
           routes:
            - id: user-service
-             uri: lb://USER-SERVICE
+             uri: ${USER_SERVICE_URI:lb://USER-SERVICE}
              predicates:
               - Path=/api/v1/users/**
              filters:
               - StripPrefix=2
 
-#     if we have protected routed for user-service than we can do this to add filter
-#        - id: user-service_protected
-#          uri: lb://USER-SERVICE
-#          predicates:
-#            - Path=/api/v1/users/protected/**
-#          filters:
-#            - StripPrefix=2
-
            - id: post-service
-             uri: lb://POST-SERVICE
+             uri: ${POST_SERVICE_URI:lb://POST-SERVICE}
              predicates:
               - Path=/api/v1/posts/**
              filters:
@@ -41,7 +33,7 @@ spring:
               - name: AuthenticationFilter
 
            - id: connection-service
-             uri: lb://CONNECTION-SERVICE
+             uri: ${CONNECTION_SERVICE_URI:lb://CONNECTION-SERVICE}
              predicates:
               - Path=/api/v1/connections/**
              filters:
@@ -49,7 +41,7 @@ spring:
               - name: AuthenticationFilter
 
            - id: notification-service
-             uri: lb://NOTIFICATION-SERVICE
+             uri: ${NOTIFICATION_SERVICE:lb://NOTIFICATION-SERVICE}
              predicates:
                - Path=/api/v1/notifications/**
              filters:

@@ -25,7 +25,7 @@ public class PostController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<PostDto> createPost(@RequestPart("post") PostCreateRequestDto postCreateRequestDto,
-                                              @RequestPart("file")MultipartFile file){
+                                              @RequestPart("file") MultipartFile file){
         PostDto postDto = postService.createPost(postCreateRequestDto,file);
         return new ResponseEntity<>(postDto, HttpStatus.CREATED);
     }
@@ -34,9 +34,6 @@ public class PostController {
     public ResponseEntity<PostDto> getPosts(@PathVariable Long postId){
 
         Long userId = AuthContextHolder.getCurrentUserId();
-
-        // TODO: Remove in future
-        // Call the connection service from the Post service and pass the userId inside the headers
 
         PostDto postDto = postService.getPostById(postId);
         return ResponseEntity.ok(postDto);
