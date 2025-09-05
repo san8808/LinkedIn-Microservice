@@ -2,6 +2,21 @@ spring.application.name: uploader-service
 
 server.port: 9050
 server.servlet.context-path: /uploads
+#actuator config
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411
 
 eureka.client.service-url.defaultZone:  http://localhost:8761/eureka
 

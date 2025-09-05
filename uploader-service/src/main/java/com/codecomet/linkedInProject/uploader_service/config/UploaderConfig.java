@@ -1,6 +1,9 @@
 package com.codecomet.linkedInProject.uploader_service.config;
 
 import com.cloudinary.Cloudinary;
+import feign.Capability;
+import feign.micrometer.MicrometerCapability;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,5 +30,10 @@ public class UploaderConfig {
                 "api_secret", apiSecret
         );
         return new Cloudinary(config);
+    }
+
+    @Bean
+    public Capability capability(final MeterRegistry registry) {
+        return new MicrometerCapability(registry);
     }
 }

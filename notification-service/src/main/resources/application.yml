@@ -8,3 +8,19 @@ spring:
       properties:
         spring.json:
           trusted.packages: com.codecomet.linkedInProject.*
+
+#actuator config
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411

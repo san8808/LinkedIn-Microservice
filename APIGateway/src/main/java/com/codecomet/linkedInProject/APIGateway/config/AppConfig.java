@@ -1,26 +1,13 @@
-package com.codecomet.linkedInProject.postService.config;
+package com.codecomet.linkedInProject.APIGateway.config;
 
 import feign.Capability;
-import feign.codec.Encoder;
-import feign.form.spring.SpringFormEncoder;
 import feign.micrometer.MicrometerCapability;
 import io.micrometer.core.instrument.MeterRegistry;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
-
-    @Bean
-    public ModelMapper getModelMapper(){
-        return new ModelMapper();
-    }
-
-    @Bean
-    public Encoder feignFormEncoder(){
-        return new SpringFormEncoder();
-    }
 
     @Bean
     public Capability capability(final MeterRegistry registry) {
